@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +12,7 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:weed_app/data/entity/recognition.dart';
 
 final recognitionsProvider = StateProvider<List<Recognition>>((ref) => []);
+
 final mlCameraProvider =
     FutureProvider.autoDispose.family<MLCamera, Size>((ref, size) async {
   final cameras = await availableCameras();
@@ -37,8 +39,8 @@ class MLCamera {
     Future(() async {
       classifier = Classifier();
       ratio = Platform.isAndroid
-          ? cameraViewSize.width / cameraController.value.previewSize!.height
-          : cameraViewSize.width / cameraController.value.previewSize!.width;
+          ? cameraViewSize.width / cameraController.value.previewSize.height
+          : cameraViewSize.width / cameraController.value.previewSize.width;
 
       actualPreviewSize = Size(
         cameraViewSize.width,
@@ -49,7 +51,6 @@ class MLCamera {
   }
   final Reader _read;
   final CameraController cameraController;
-
   Size cameraViewSize;
   double ratio;
   Classifier classifier;
@@ -95,7 +96,7 @@ class MLCamera {
 }
 
 class IsolateData {
-  IsolateData({required this.cameraImage, required this.intrtpreterAddress, required this.labels});
+  IsolateData({this.cameraImage, this.intrtpreterAddress, this.labels});
 
   final CameraImage cameraImage;
   final int intrtpreterAddress;

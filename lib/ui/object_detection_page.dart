@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,7 +7,7 @@ import '../data/model/ml_camera.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ObjectDetectionPage extends HookConsumerWidget {
-  const ObjectDetectionPage({Key? key}) : super(key: key);
+  const ObjectDetectionPage({Key key}) : super(key: key);
   static String routeName = '/object_detection';
 
   @override
@@ -106,7 +107,7 @@ class BoundingBox extends HookWidget {
         height: renderLocation.height,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
             width: 3,
           ),
           borderRadius: const BorderRadius.all(
@@ -123,7 +124,7 @@ class BoundingBox extends HookWidget {
       alignment: Alignment.topLeft,
       child: FittedBox(
         child: ColoredBox(
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).colorScheme.secondary,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [

@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:math';
 import '../entity/recognition.dart';
 import '../../util/logger.dart';
@@ -7,11 +8,11 @@ import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
 
 class Classifier {
   Classifier({
-     Interpreter? interpreter,
-     List<String>? labels,
+    Interpreter interpreter,
+    List<String> labels,
   }) {
-    loadModel(interpreter!);
-    loadLabels(labels!);
+    loadModel(interpreter);
+    loadLabels(labels);
   }
 
   Interpreter _interpreter;
@@ -32,9 +33,8 @@ class Classifier {
     try {
       _interpreter = interpreter ??
           await Interpreter.fromAsset(
-            '$modelFileName',
-            options: InterpreterOptions()
-              ..threads = 4,
+            'assets/$modelFileName',
+            options: InterpreterOptions()..threads = 4,
           );
       final outputTensors = _interpreter.getInputTensors();
       _outputShapes = [];
@@ -79,7 +79,7 @@ class Classifier {
     return imageProcessor.process(inputImage);
   }
 
-  List<Recognition>? predict(image_lib.Image image) {
+  List<Recognition> predict(image_lib.Image image) {
     if (_interpreter == null) {
       return null;
     }
